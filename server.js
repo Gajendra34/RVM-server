@@ -17,6 +17,18 @@ app.use(cookieParser());
 dotenv.config();
 app.use(express.static('public'));  // for image access
 
+app.use("*",cors({
+    origin:true,
+    credentials:true,
+    methods:["GET","POST","PUT","DELETE"]
+}),
+function(req,res,next)
+{
+    req.header('Access-Control-Allow-Origin',req.origin),
+    req.header('Access-Control-Allow-Headers',"Origin,X-Requested-With,Content-Type")
+    next()
+})
+
 const salt = 10;
 
 const db=mysql2.createConnection(process.env.DATABASE_URL)
