@@ -20,10 +20,10 @@ const db = mysql2.createConnection({
 })
 db.connect((err) => {
     if (err) {
-        console.log('error')
+        console.log('error',error)
     }
     else {
-        console.log('connected')
+        console.log('connected to mySQL')
     }
 })
 
@@ -37,7 +37,7 @@ app.use(express.static('public'));  // for image access
 const salt = 10;
 
 app.use(cors({
-    origin: ['http://localhost:3000'],
+    origin: ['https://rvmserver.onrender.com'],
     method: ["POST", "GET", "DELETE"],
     credentials: true
 }))
@@ -239,6 +239,7 @@ app.delete('/pro_delete/:id', (req, res) => {
 
 
 import nodemailer from 'nodemailer'
+import { error } from 'console'
 var transporter = nodemailer.createTransport({
     host: 'smtp.gmail.com',
     port: 587,
