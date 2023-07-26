@@ -106,7 +106,11 @@ app.post('/login', (req, res) => {
                 if (resp) {
                     // const id = result[0].id;
                     const token = jwt.sign({ role: "customer", image: result[0].image, firstname: result[0].firstname }, "jwt-secret-key", { expiresIn: '1d' });
-                    res.cookie('token', token);
+                    res.cookie('token', token,{
+                        sameSite:'none',
+                        secure:true,
+                        httpOnly:true
+                    });
                     return res.json({ Status: "Success" });
                 }
                 else {
