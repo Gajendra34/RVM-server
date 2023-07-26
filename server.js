@@ -128,7 +128,11 @@ app.post('/login', (req, res) => {
 
 
 app.get('/logout', (req, res) => {
-    res.clearCookie('token')
+    res.cookie('token', null,{
+        sameSite:'none',
+        secure:true,
+        httpOnly:true
+    });
     return res.json({ Status: "Success" })
 })
 
