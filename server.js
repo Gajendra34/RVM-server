@@ -7,25 +7,8 @@ import cookieParser from 'cookie-parser'
 import jwt from 'jsonwebtoken'
 import multer from 'multer'
 import path from 'path'
-import fs from 'fs'
-import pdf from 'html-pdf'
 
-
-const db = mysql2.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: 'Gajendra@12',
-    database: 'e_commerce',
-    port: '3306'
-})
-db.connect((err) => {
-    if (err) {
-        console.log('error',error)
-    }
-    else {
-        console.log('connected to mySQL')
-    }
-})
+// import db from './connetToSever.js'
 
 
 const app = express();
@@ -36,8 +19,10 @@ app.use(express.static('public'));  // for image access
 
 const salt = 10;
 
+const db=mysql2.createConnection(process.env.DATABASE_URL)
+
 app.use(cors({
-    origin: ['https://rvmserver.onrender.com'],
+    origin: ['https://rvmserver.onrender.com','http://localhost:3000'],
     method: ["POST", "GET", "DELETE"],
     credentials: true
 }))
@@ -355,6 +340,8 @@ app.get('/del_atc_item', (req, res) => {
 
 app.listen(process.env.PORT, () => {
     console.log(`Server is listening on http://localhost:${process.env.PORT}`)
+    // db();
+    
 })
 
 
